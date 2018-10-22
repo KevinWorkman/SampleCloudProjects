@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Word Count Chart</title>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+
+	var wordCountData;
+	var chartLoaded = false;
+	var dataLoaded = false;
+
+	function maybeDrawChart(){
+		if(chartLoaded && dataLoaded){
+			drawChart();
+		}
+	}
+	
+	var url = '/word-count-json';
+	fetch(url).then(function(response) {
+		return response.json();
+	}).then(function(json) {
+		wordCountData = json;
+		dataLoaded = true;
+		maybeDrawChart();
+	});
+	
+	google.charts.load("current", {
+		packages : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(function(){
+		chartLoaded = true;
+		maybeDrawChart();
+	});
+
+	function drawChart() {
+
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Word');
+		data.addColumn('number', 'Count');
+
+		data.addRows(wordCountData);
+
+		var options = {
+			title : 'Word Count',
+		};
+
+		var chart = new google.visualization.ColumnChart(document
+				.getElementById('chart'));
+
+		chart.draw(data, options);
+	}
+</script>
+<style>
+#content {
+	white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+	<h1>Word Count Chart</h1>
+	<p>Here is the count of various words in Bram Stoker's Dracula:</p>
+	<div id="chart" style="width: 900px; height: 300px;"></div>
+</body>
+</html>

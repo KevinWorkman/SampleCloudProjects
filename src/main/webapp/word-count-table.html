@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Word Count Table</title>
+
+<script>
+	var url = '/word-count-json';
+	fetch(url).then(function(response) {
+		return response.json();
+	}).then(function(data) {
+
+		var table = document.createElement("table");
+		for (var i = 0; i < data.length; i++) {
+			var row = document.createElement("tr");
+
+			var wordCell = document.createElement("td");
+			var wordCellText = document.createTextNode(data[i][0]);
+			wordCell.appendChild(wordCellText);
+			row.appendChild(wordCell);
+
+			var countCell = document.createElement("td");
+			var countCellText = document.createTextNode(data[i][1]);
+			countCell.appendChild(countCellText);
+			row.appendChild(countCell);
+
+			table.appendChild(row);
+		}
+
+		document.getElementById('content').appendChild(table);
+	});
+</script>
+</head>
+<body>
+	<h1>Word Count Table</h1>
+	<p>Here is the count of various words in Bram Stoker's Dracula:</p>
+	<div id="content"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Message</title>
+<script>
+	var url = '/random-message';
+	fetch(url).then(function(response) {
+		return response.text();
+	}).then(function(text) {
+		document.getElementById('content').textContent = text;
+	});
+</script>
+</head>
+<body>
+	<h1>Random Message</h1>
+	<p>Here's a random message:</p>
+	<p id="content">Loading...</p>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Random Excerpt</title>
+<script>
+	var url = '/random-excerpt';
+	fetch(url).then(function(response) {
+		return response.text();
+	}).then(function(text) {
+		document.getElementById('content').textContent = text;
+	});
+</script>
+<style>
+#content {
+	white-space: pre-wrap;
+}
+</style>
+</head>
+<body>
+	<h1>Random Excerpt</h1>
+	<p>Here's a random excerpt from Bram Stoker's Dracula:</p>
+	<p id="content">Loading...</p>
+</body>
+</html>
